@@ -1,0 +1,290 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block dashboard %}
+
+    <!--GENERATE DASHBOARD ELEMENTS-->
+    <section class="dashboard-body">
+        {% for el in elements %}
+            <section draggable="true">
+                <section class="dashboard-element-header">{{ el.title }}</section>
+                <section class="dashboard-element-large">
+
+                    {% if el.container_type == 'accordion' %}
+<!--DASHBOARD ELEMENT: TTS or TTD-->
+                        <ul class="accordion-summary">
+                            {% for container in el.container %}
+                                <li>
+                                    <ul class="accordion-control-summary">
+                                        <li class="icon-summary"><img src={{ el.icon }}/></li>
+                                        <li class="text-summary">{{ container.chart_summary }}</li>
+                                        <li class="action-summary"><div class="show-hide"></div></li>
+                                    </ul>
+                                    <div class="accordion-panel-detail">
+                                        <ul>
+                                            <li id="graph-generic-large">{{ container.chart_div | safe }}</li>
+                                            <li><a class="action-detail" href="#">See Recommended Actions</a></li>
+                                        </ul>
+                                        <!-- Recommendation Container -->
+                                        <div class="ui-dialog" title="Recommended Action">
+                                            <!-- Recommendation Content -->
+                                            <div>
+                                                <p>{{ container.rec_container.title }}</p>
+                                                <p>{{ container.rec_container.problem }}</p>
+                                                <p>{{ container.rec_container.motivation }}</p>
+                                                <p>{{ container.rec_container.recommendation }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+<!--END DASHBOARD ELEMENT: TTS or TTD-->
+                        </ul>
+
+
+                    {% elif el.container_type == 'carousel' %}
+
+                    <div class="carousel-container">
+<!--DASHBOARD ELEMENT: EXECUTIVE OVERVIEW-->
+                        {% for item in el.container %}
+                        <div class="carousel-xo-card" id="{{ item.card_id }}">
+                            <ul>
+                            <li><img src={{ item.icon }}/>{{ item.name }}</li>
+                            <li id="xo-big">{{ item.percent }}</li>
+                            <li>{{ item.value }}</li>
+                            <li id="xo-small">{{ item.direction }} from last {{ item.timeframe }}</li>
+                            </ul>
+                        </div>
+                        {% endfor %}
+<!--END DASHBOARD ELEMENT: EXECUTIVE OVERVIEW-->
+                    </div>
+
+                    {% elif el.container_type == 'accordion_v2' %}
+
+                    <div class="accordion-v2-container">
+<!--DASHBOARD ELEMENT: BOUNCE RATES-->
+                        <div class="accordion-summary">
+                            <ul class="accordion-control-summary-inactive">
+                                <li class="icon-summary"><img src={{ el.icon }}/></li>
+                                <li class="text-summary">{{ el.container.chart_summary | safe }}</li>
+                            </ul>
+                            <ul class="accordion-control-summary-inactive">
+                                <li id="graph-generic-large">{{ el.container.chart_div | safe }}</li>
+                            </ul>
+                            <ul class="accordion-control-summary" id="show-hide-br-detail">
+                                <li><a class="show-hide" href="#"></a></li>
+                            </ul>
+                            <div class="accordion-panel-detail">
+                                <div class="accordion-control-summary-inactive" id="six-column">
+                                    <ul>
+                                    {% for column in el.container.page_detail_columns %}
+                                        <li><h1>{{ column }}</h1></li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                                {% for d in el.container.page_detail %}
+                                    <div class="accordion-control-summary" id="six-column">
+                                        <ul>
+                                            <li>{{ d.short_name }}</li>
+                                            <li>{{ d.bounce_rate }}</li>
+                                            <li>{{ d.off_average }}</li>
+                                            <li>{{ d.conversion_rate }}</li>
+                                            <li><a class="show-hide-srcs"></a></li>
+                                            <li><a class="action-detail" href="#">{{ d.rec_tag | safe }}</a></li>
+                                        </ul>
+                                        <!-- Recommendation Container -->
+                                        <div class="ui-dialog" title="Recommended Action">
+                                            <!-- Recommendation Content -->
+                                            <div>
+                                                <p>{{ d.rec_container.title }}</p>
+                                                <p>{{ d.rec_container.problem }}</p>
+                                                <p>{{ d.rec_container.motivation }}</p>
+                                                <p>{{ d.rec_container.recommendation }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-panel-detail" id="six-column">
+                                        <p style="padding-left: 40px;">{{ d.long_name }} </p>
+                                        <ul>
+                                        {% for src in d.srcs_container.srcs_data %}
+                                            <li>{{ src.src_name }}</li>
+                                            <li>{{ src.src_bounce_rate }}</li>
+                                            <li>{{ src.src_off_average }}</li>
+                                            <li>{{ src.src_conversion_rate }}</li>
+                                            <li></li>
+                                            <li></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+<!--END DASHBOARD ELEMENT: BOUNCE RATES-->
+                    </div>
+
+                    {% elif el.container_type == 'list' %}
+
+                    <div class="accordion-v2-container">
+<!--DASHBOARD ELEMENT: REFERRAL SOURCES-->
+                        <div class="accordion-summary">
+                            <div class="accordion-control-summary-inactive" id="seven-column">
+                                <ul>
+                                    {% for column in el.container.columns %}
+                                    <li><h1>{{ column }}</h1></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% for row in el.container.rows %}
+                                <div class="accordion-control-summary" id="seven-column">
+                                    <ul>
+                                        <li>{{ row.group_name }}</li>
+                                        <li>{{ row.sessions }}</li>
+                                        <li>{{ row.sessions_delta_p }}</li>
+                                        <li>{{ row.goal_completions }}</li>
+                                        <li>{{ row.goal_completions_delta_p }}</li>
+                                        <li>{{ row.conversion_rate_curr }}</li>
+                                        <li>{{ row.conversion_rate_prev }}</li>
+                                    </ul>
+                                </div>
+                                <div class="accordion-panel-detail" id="seven-column">
+                                    <ul>
+                                        {% for src in row.src_detail %}
+                                            <li>{{ src.source }}</li>
+                                            <li>{{ src.sessions }}</li>
+                                            <li>{{ src.sessions_delta_p }}</li>
+                                            <li>{{ src.goal_completions }}</li>
+                                            <li>{{ src.goal_completions_delta_p }}</li>
+                                            <li>{{ src.conversion_rate_curr }}</li>
+                                            <li>{{ src.conversion_rate_prev }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+<!--END DASHBOARD ELEMENT: REFERRAL SOURCES-->
+
+                    {%  endif %}
+                </section>
+            </section>
+            <section class="dashboard-element-spacer"></section>
+        {% endfor %}
+        <section id="dashboard-footer">Nerd Vision by allgosocial and nerd power media</section>
+    </section>
+
+<!--GENERATE DASHBOARD TITLE BAR-->
+    <section id="dashboard-header">
+        <ul>
+            <li>
+                <div id="dashboard-menu-btn">
+                    <img src={% static "img/ic_menu.svg" %} alt="menu" />
+                </div>
+            </li>
+            <li>
+                <div id="dashboard-menu-item">{{ menu_title }}</div>
+            </li>
+            <li style="float: right">
+                <a id="dashboard-menu-item" href="/logout">Log Out</a>
+            </li>
+            <li style="float: right">
+                <div id="dashboard-settings-btn">
+                    <img src={% static "img/ic_settings.svg" %} alt="date" />
+                </div>
+            </li>
+        </ul>
+    </section>
+
+<!--GENERATE DASHBOARD NAV-->
+    <section class="panel" id="dashboard-navbar">
+        <ul class="accordion">
+            <li>
+                <a class="accordion-control" id="nav-accts" href="#">Accounts</a>
+                <div class="accordion-panel">
+                    {% for acct in preferences.acct_list %}
+                        <a id="nav-sub-item" href="#">{{ acct }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            <li>
+                <a class="accordion-control" id="nav-rpts" href="#">Reports</a>
+                <div class="accordion-panel">
+                    <a id="nav-sub-item" href="#">In development...</a>
+                </div>
+            </li>
+            <li>
+                <a class="accordion-control" id="nav-blls" href="#">Billing</a>
+                <div class="accordion-panel">
+                    <a id="nav-sub-item" href="#">In development...</a>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+<!--GENERATE PREFERENCE PANE-->
+    <section class="panel-right" id="dashboard-prefs">
+        <section style="font-weight: 500">Preferences</section>
+        <ul>
+            <li>Select Timeframe</li>
+                <div id="dashboard-prefs-tf">
+                    <p>Date Selection in Development...</p>
+                </div>
+            <li>Page Filters</li>
+            <li>Benchmarks</li>
+        </ul>
+    </section>
+
+<!--INTERACTIVITY-->
+
+    <!--<script src={% static "js/jquery-1.11.0.min.js" %}></script>-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src={% static "js/accordion.js" %}></script>
+    <script src={% static "js/button.js" %}></script>
+    <script src={% static "js/elements.js" %}></script>
+    <script src={% static "js/base.js" %}></script>
+
+    <!-- INITIALIZE CHART DATA -->
+    <script>
+        $( function() {
+            $( "#dialog" ).dialog();
+        } );
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(function() {
+            var chart_width = $('.app-container').width();
+            {% for el in elements %}
+                var chart_context = {};
+                {% if el.container.chart_type == "column-summary" %}
+                    chart_context = {
+                        'data': {{ el.container.chart_data | safe }},
+                        'tag': '{{ el.container.chart_tag | safe }}',
+                        'title': '{{ el.container.chart_title }}',
+                        'x-axis': '{{ el.container.chart_x_lbl }}',
+                        'y-axis': '{{ el.container.chart_y_lbl }}',
+                        'y-ticks': {{ el.container.chart_y_ticks | safe }},
+                        'width': chart_width,
+                        'height': 600
+                    };
+                    drawColumnChartConditional(chart_context);
+                {% endif %}
+                {% for item in el.container %}
+                    {% if item.chart_type == "column-detail" %}
+                        chart_context = {
+                            'data': {{ item.chart_data | safe }},
+                            'tag': '{{ item.chart_tag | safe }}',
+                            'title': '{{ item.chart_title }}',
+                            'x-axis': '{{ item.chart_x_lbl }}',
+                            'y-axis': '{{ item.chart_y_lbl }}',
+                            'colors': {{ item.chart_colors | safe }},
+                            'width': chart_width,
+                            'height': 600
+                        };
+                        drawColumnChart(chart_context);
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        });
+    </script>
+{% endblock %}

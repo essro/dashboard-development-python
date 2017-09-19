@@ -1,0 +1,13 @@
+{% extends 'registration/base.html' %}
+
+{% block title %}Nerd Vision - Login{% endblock %}
+{% block content %}
+    <div class="dashboard-element-large">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <button type="submit">Login</button>
+        </form>
+    </div>
+{% endblock %}

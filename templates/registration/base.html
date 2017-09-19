@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<style media="screen" type="text/css">
+@import url(http://fonts.googleapis.com/css?family=Roboto|Roboto:500);
+
+html, body {
+    font-family: Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    color: #666;
+}
+
+label {
+    width: 100px;
+    height: 48px;
+}
+
+input[type=text] {
+    width: 200px;
+    height: 48px;
+    font-size: 100%;
+    box-sizing: border-box;
+    position: relative;
+    left: 0;
+}
+
+input[type=password] {
+    width: 200px;
+    height: 48px;
+    font-size: 100%;
+    box-sizing: border-box;
+    position: relative;
+    left: 0;
+}
+
+.app-container {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #e2e2e2;
+    overflow-y: auto;
+}
+
+.dashboard-body {
+    position: relative;
+    top: 48px;
+    padding-top: 12px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#dashboard-header {
+    color: #f0f0f0;
+    height: 48px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #30334F;
+    padding: 8px;
+    padding-top: 16px;
+}
+
+#dashboard-header h1 {
+    font-weight: normal;
+    font-size: 150%;
+    text-align: center;
+    margin: auto;
+}
+
+#dashboard-header h2 {
+    font-size: 100%;
+}
+
+.dashboard-element-large {
+    width: 30%;
+    margin: auto;
+    margin-top: 10%;
+    padding: 5%;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+}
+
+.dashboard-element-large button {
+    background-color: #666;
+    width: 200px;
+    height: 48px;
+    padding: 8px;
+    color: #f0f0f0;
+    font-size: 100%;
+}
+
+.dashboard-element-large button:hover {
+    background-color: #585b5d;
+}
+
+
+</style>
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+</head>
+<body>
+    <div class="app-container">
+        <div id="dashboard-header"><h1>Nerd Vision</h1></div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

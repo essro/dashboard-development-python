@@ -1,0 +1,90 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto|Roboto:500);
+@import url(http://fonts.googleapis.com/css?family=Quicksand);
+
+.accordion, .menu {
+    color: #666;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.accordion li {
+    list-style-type: none;
+}
+
+.accordion-control {
+    font-family: Roboto, sans-serif;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.accordion-panel {
+    display: none;
+}
+
+.accordion-panel p {
+    margin: 0;
+}
+
+.accordion-panel img {
+    display: block;
+    clear: left;
+}
+
+.accordion-summary, .menu-summary {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.accordion-summary ul li {
+    list-style-type: none;
+    display: block;
+}
+
+.accordion-control-summary {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.accordion-control-summary:hover {
+    background-color: #e2e2e2;
+}
+
+.accordion-control-summary ul li {
+    list-style-type: none;
+    display: inline;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.accordion-control-summary-inactive {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.accordion-control-summary-inactive ul li {
+    list-style-type: none;
+    display: inline;
+}
+
+.accordion-panel-detail {
+    width: inherit;
+    display: none;
+}
+
+.accordion-panel-detail p {
+    margin: 0;
+}
+
+.accordion-panel-detail img {
+    display: block;
+}
+
+.accordion-v2-container {
+    overflow: hidden;
+}

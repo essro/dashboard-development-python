@@ -1,0 +1,47 @@
+#six-column {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#six-column ul li {
+    list-style-type: none;
+    display: inline-block;
+    width: 16%;
+    height: 24px;
+}
+
+#six-column a {
+    color: #2b2e49;
+}
+
+#six-column a:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+#seven-column {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#seven-column ul li {
+    list-style-type: none;
+    display: inline-block;
+    width: 13%;
+    height: 24px;
+}
+
+#seven-column a {
+    color: #2b2e49;
+}
+
+#seven-column a:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+#level-one-long {
+    width: 40%;
+}
